@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h1>Hello Instructor <b>  <a href="{{ ins.get_absolute_url }}"> {{ ins.fullname }} </a> </b></h1>
+
+<div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Courses</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+            <tr>
+              <td>
+                <a href="{% url 'ins_crs' course.id %}">{{ course.name }}</a>
+                <small class="text-muted d-block">{{ course.description }}</small>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+{% endblock %}

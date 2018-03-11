@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <div class="container">
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'std_crs' course.pk %}">{{ course.name }}</a></li>
+         <li class="breadcrumb-item">{{ board.name }}</li>
+      </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form id="searchform" action="{% url 'blog_search' course.pk %}" method="get" accept-charset="utf-8">
+      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Enter key words">
+      <button class="searchbutton" type="submit">Search
+      </button>
+    </form>
+<br>
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Topic</th>
+        <th>Starter</th>
+        <th>Created at</th>
+        <th>Reply</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for topic in topics %}
+        <tr>
+          <td><a href="{% url 'topic_view' topic.pk %}">{{ topic.brief }}</a></td>
+          <td>{{ topic.starter.username }}</td>
+          <td>{{ topic.created_at }}</td>
+          <td><a href="{% url 'new_post' topic.pk %}">Reply to this question</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+<b><a href="{% url 'new_topic' course.pk %}">Post a new question</a></b>
+{% endblock %}

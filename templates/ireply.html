@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'ins_crs' course.id %}">{{ course.name }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'ins_brd_view' course.id %}">{{ board.name }} </a></li>
+  <li class="breadcrumb-item active">New topic</li>
+{% endblock %}
+
+{% block content %}
+<h4>New reply</h4>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_name">Answer</label>
+      <textarea class="form-control" id="id_name" name="message" cols="40" rows="8"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Post</button>
+  </form>
+{% endblock %}

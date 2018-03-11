@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>ZOOM EFFECT</title>
+	<style type="text/css">
+	.img-circle {
+			border-radius:100%;
+			  top: 50%;
+			  left: 50%;
+		}
+		/* entire container, keeps perspective */
+	/* simple */
+		.flip-container {
+			top: 25%;
+			left: 25%;
+			perspective: 1000;
+
+			
+			}
+
+			/*
+			.flip-container:hover .flipper, .flip-container.hover .flipper, #flip-toggle.flip .flipper {
+				-webkit-transform: rotateY(180deg);
+				-moz-transform: rotateY(180deg);
+				-ms-transform: rotateY(180deg);
+				transform: rotateY(180deg);
+				filter: FlipH;
+    			-ms-filter: "FlipH";
+			}
+			*/
+
+
+			/* START: Accommodating for IE */
+			.flip-container:hover .back, .flip-container.hover .back {
+    transform: rotateY(0deg);
+}
+
+.flip-container:hover .front, .flip-container.hover .front {
+    transform: rotateY(180deg);
+}
+		
+		/* END: Accommodating for IE */
+
+		.flip-container, .front, .back {
+			top: 50%;
+			left: 50%;
+
+			width: 500px;
+			height: 500px;
+		}
+
+		.flipper {
+			
+			transition: 0.6s;
+			transform-style: preserve-3d;
+
+			position: relative;
+		}
+
+		.front, .back {
+			backface-visibility: hidden;
+
+		    transition: 0.6s;
+		    transform-style: preserve-3d;
+		    transform: rotateY(0deg);
+
+			position:absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.front {
+			z-index: 2;
+		}
+
+		.back {
+			transform: rotateY(-180deg);
+		}
+
+
+		
+	
+	</style>
+</head>
+<body>
+	<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+	<div class="flipper">
+		<div class="front">
+			<img class="img-circle" height="500px" width="500px" src="logo.jpg" alt="Image">
+			<!-- front content -->
+		</div>
+		<div class="back">
+			<img class="img-circle" height="500px" width="500px" src="image.jpg" alt="Image">
+
+			<!-- back content -->
+		</div>
+	</div>
+</div>
+
+	
+
+</body>
+</html>

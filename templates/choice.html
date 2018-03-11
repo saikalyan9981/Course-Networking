@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h1>Just one more step</h1>
+<a href="{% url 'std_signup' user.pk %}">Signup as Student</a>
+<a href="{% url 'ins_signup' user.pk %}">Signup as instructor</a>
+{% endblock %}

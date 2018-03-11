@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <div class="container">
+      <ol class="breadcrumb my-4">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'ins_crs' course.pk %}">{{ course.name }}</a></li>
+         <li class="breadcrumb-item">{{ board.name }}</li>
+      </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form id="searchform" action="{% url 'blog_isearch' course.pk %}" method="get" accept-charset="utf-8">
+
+      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Enter key words">
+      <button class="searchbutton" type="submit">Search
+      </button>
+    </form>
+<br>
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Topic</th>
+        <th>Starter</th>
+        <th>Created at</th>
+        <th>Reply</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for topic in topics %}
+        <tr>
+          <td><a href="{% url 'topic_iview' topic.pk %}">{{ topic.brief }}</a></td>
+          <td>{{ topic.starter.username }}</td>
+          <td>{{ topic.created_at }}</td>
+          <td><a href="{% url 'new_ipost' topic.pk %}">Reply to this question</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

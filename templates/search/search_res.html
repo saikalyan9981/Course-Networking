@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <div class="container">
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'std_crs' course.pk %}">{{ course.name }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'std_brd_view' course.pk %}">{{ board.name }}</a></li>
+        <li class="breadcrumb-item">Search results</li>
+      </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <form id="searchform" action="{% url 'blog_search' course.pk %}" method="get" accept-charset="utf-8">
+      <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Enter key words" value="{{ query_string }}">
+      <button class="searchbutton" type="submit">Search
+      </button>
+    </form>
+<br>
+{% if src_res|length == 0 %}
+<b>Sorry! Nothing found</b>
+{% else %}
+<b>{{src_res|length}} result(s) found </b><br>
+{% endif %}
+<br>
+{%  for topic in src_res %}
+<div class="jumbotron container-fluid img-rounded" style="padding: 5px 5px 5px 5px ;" >
+    <b><a href="{% url 'topic_view' topic.pk %}">{{ topic.brief }}</a></b><br><br>
+    <p>{{ topic.name }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h1>Hello <b> <a href="{{ std.get_absolute_url }}"> {{ std.fullname }}</a></b></h1>
+
+<div class="container-fluid " style="padding:0px;">
+    <div class="row">
+      <div class="col-sm-9">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Courses</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+            <tr>
+              <td>
+                <a href="{% url 'std_crs' course.id %}">{{ course.name }}</a>
+                <small class="text-muted d-block">{{ course.description }}</small>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Notifications</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Event</th>
+            <th>Course</th>
+            <th>Deadline Date</th>
+            <th>Deadline Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+        {% for events in course.events_set.all %}
+          {% if events.is_due %}
+          <tr>
+              <td>
+                  <a href="{{ events.get_absolute_url }}"> {{ events.name }}</a>
+              </td>
+                <td>
+                    {{events.course}}
+                </td>
+                <td>
+                    {{events.deadline_date}}
+                </td>
+                <td>
+                    {{events.deadline_time}}
+                </td>
+            </tr>
+          {% endif %}
+          {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+
+      <div class="col-sm-3">
+          <br>
+          <br>
+       <h4>QUICK LINKS</h4>
+       <ul>
+           <li><a href="{% url 'std_ttb'  %}">View timetable </a> </li>
+           <li><a href="{% url 'eventcalendar:eventcalendar' %}">Calendar-Monthly View </a></li>
+      </ul>
+      </div>
+    </div>
+</div>
+<ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Feedback</li>
+    </ol>
+<div class="container-fluid" >
+    <div class="row">
+
+    <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Feedback</th>
+            <th>Course</th>
+            <th>Time/Deadline</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+        {% for feedback in course.feedback_set.all %}
+          {% if feedback.is_due %}
+            <tr>
+                <td>
+                    {{feedback.feedback_name}}
+                </td>
+                <td>
+                    {{feedback.course}}
+                </td>
+                <td>
+                    {{feedback.deadline_date}}
+                </td>
+                <td>
+                    <a href="{% url 'submitFeedback' feedback.id %}">Fill out Feeedback Form</a>
+                </td>
+            </tr>
+          {% endif %}
+          {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+

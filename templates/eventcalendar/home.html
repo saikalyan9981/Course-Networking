@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+{% endblock %}
+{% block breadcrumb %}
+    <div class="container">
+      <ol class="breadcrumb ">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item">Calendar</li>
+      </ol>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+<h1>Calendar </h1>
+<table width="100%">
+    <tr>
+        <td width="20%" align="left">
+          << <a href="{% url 'eventcalendar:evecalendar' PreviousYear PreviousMonth%}">{{PreviousMonthName}}  {{PreviousYear}}</a>
+        </td>
+        <td width="20%" align="left">
+            <<  <a href="{% url 'eventcalendar:evecalendar' YearBeforeThis Month%}">{{MonthName}} {{YearBeforeThis}}</a>
+        </td>
+        <td width="20%" align="center"><a href="/eventcalendar">Today</a></td>
+        <td width="20%" align="right">
+          <a href="{% url 'eventcalendar:evecalendar' YearAfterThis Month%}">{{MonthName}} {{YearAfterThis}}</a> &gt;&gt;
+        </td>
+        <td width="20%" align="right">
+          <a href="{% url 'eventcalendar:evecalendar' NextYear NextMonth%}">{{NextMonthName}} {{NextYear}}</a> &gt;&gt;
+        </td>
+    </tr>
+</table>
+<div id="calendar">
+  {{Calendar}}
+</div>
+
+{% endblock %}

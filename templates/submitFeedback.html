@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load conc %}
+        <meta charset="UTF-8">
+        <title>Feedback</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <h3 style="text-align:center;"> {{course.name}} : {{feedback.feedback_name}}</h3>
+        <input type="hidden" id ="v" name="v" value="0">
+
+
+        {% comment %}
+        <h3> Click on any feedback:</h3>
+        <div id="accordion" class="panel-group">
+            <div class="panel panel-default">
+                    {% with feedback.id|stringformat:"s" as id %}
+                    <div class="panel-heading">
+                        <h1 class="panel-title">
+                            {% with "#collapse"|add:id as temp %}
+                            <a data-toggle="collapse" data-parent="#accordion" href= "{{ temp }}">
+                            {{course.name}} : {{feedback.feedback_name}}</a>
+                            {% endwith %}
+                        </h1>
+                    </div>
+                    {% with "collapse"|add:id as temp %}
+                    <form id="{{temp}}" class="panel-collapse collapse" >
+                    {% endwith %}
+                        {% endcomment %}
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="panel-body">
+                            <div class="container-scroll">
+                                <div class="form-group">
+                                {% for question in feedback.ratingquestion_set.all %}
+                                    {% apend "rating" question.id as ra_id %}
+                                    <h4>Question:{{question.question}}<br><br>Your Response:</h4>
+                                        <input type="radio" style="height:1.5em; width:1.5em;" name="{{ra_id}}" value=1>1&nbsp
+                                        <input type="radio" style="height:1.5em; width:1.5em;" name="{{ra_id}}" value=2>2&nbsp
+                                        <input type="radio" style="height:1.5em; width:1.5em;" name="{{ra_id}}" value=3>3&nbsp
+                                        <input type="radio" style="height:1.5em; width:1.5em;" name="{{ra_id}}" value=4>4&nbsp
+                                        <input type="radio" style="height:1.5em; width:1.5em;" name="{{ra_id}}" value=5>5&nbsp
+                                        <br><br>
+                                {% endfor %}
+                                {% for question in feedback.subjectivequestion_set.all %}
+                                    {% apend "subjective" question.id as sub_id %}
+                                    <h4>Question:{{question.question}}<br><br>Your Response:</h4>
+                                    <textarea class="form-control" id="{{sub_id}}" name="{{sub_id}}" style="width: 900px; height: 200px;"></textarea><br>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                <div align="center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+                    </form>
+
+            </div>
+        </div>
+    </body>
+</html>

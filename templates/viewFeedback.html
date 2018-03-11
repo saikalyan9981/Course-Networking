@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Feedback</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <input type="hidden" id ="v" name="v" value="0">
+        <h3> Click on any feedback:</h3>
+        <div id="accordion" class="panel-group">
+            <div class="panel panel-default">
+                {% for feedback in course.feedback_set.all %}
+                    {% with feedback.id|stringformat:"s" as id %}
+                    <div class="panel-heading">
+                        <h1 class="panel-title">
+                            {% with "#collapse"|add:id as temp %}
+                            <a data-toggle="collapse" data-parent="#accordion" href= "{{ temp }}">
+                            {{course.name}} : {{feedback.feedback_name}}</a>
+                            {% endwith %}
+                        </h1>
+                    </div>
+                    {% with "collapse"|add:id as temp %}
+                    <div id="{{temp}}" class="panel-collapse collapse" >
+                    {% endwith %}
+                        <div class="panel-body">
+                            <div class="container-scroll">
+                                {% for question in feedback.ratingquestion_set.all %}
+                                    <h4>Question:{{question.question}}<br>Responses:</h4>
+                                    <iframe src="{% url 'ratingFeedback' question.id %}" style="width: 80%; height: 200px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0"></iframe>
+                                {% endfor %}
+                                {% for question in feedback.subjectivequestion_set.all %}
+                                    <h4>Question:{{question.question}}<br>Responses:</h4>
+                                    <iframe src="{% url 'subjectiveFeedback' question.id %}" style="width: 80%; height: 100px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0"></iframe>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

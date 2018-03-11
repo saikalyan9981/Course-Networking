@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'ins_crs' course.id %}">{{ course.name }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'ins_res' course.id %}">Resources </a></li>
+        <li class="breadcrumb-item active">New resource</li>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+{% endblock %}
+
+
+

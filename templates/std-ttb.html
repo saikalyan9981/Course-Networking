@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load app_filters %}
+
+{% block breadcrumb %}
+    <div class="container">
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+         <li class="breadcrumb-item">My timetable</li>
+      </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+ <table class="table table-bordered table-responsive table-hover text-center" style="font-family: 'Marmelad';font-size: 20px;">
+  <tr class="info">
+  <th class="text-center" style="width:10%;">Day\Time</th>
+  <th class="text-center" style="width:11%;" >8:30-9:30</th>
+  <th class="text-center" style="width:11%;" >9:30-10:30 </th>
+  <th class="text-center" style="width:3%;" >10:30-11:00</th>
+  <th class="text-center" style="width:3%;" >11:00-11:30</th>
+  <th class="text-center" style="width:12%;" >11:30-12:30</th>
+  <th class="text-center" style="width:16%;" >12:30-14:00</th>
+  <th class="text-center" style="width:17%;" >14:00-15:30</th>
+  <th class="text-center" style="width:17%;" >15:30-17:00</th>
+  </tr>
+  <tr class="success">
+  <th class="text-center" colspan="1" >Monday</th>
+  <td colspan="1" > {% with "1A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "2A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="2" >{% with "3A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "4A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >Lunch Break</td>
+  <td colspan="2" >{% with "1B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  </tr>
+  <tr class="danger">
+  <th class="text-center" colspan="1" >Tuesday</th>
+  <td colspan="1" >{% with "5A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "6A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="2" >{% with "7A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "8A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >Lunch Break</td>
+  <td colspan="1" >{% with "2B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "3B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  </tr>
+  <tr class="warning">
+  <th class="text-center" colspan="1" >Wednesday</th>
+  <td colspan="1" >{% with "9A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="2" >{% with "10A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="2" >{% with "11A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >Lunch Break</td>
+  <td colspan="1" >{% with "4B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "5B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  </tr>
+  <tr class="active">
+  <th class="text-center" colspan="1" >Thursday</th>
+  <td colspan="1" >{% with "12A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" ">{% with "13A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="2" >{% with "14A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "15A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >Lunch Break</td>
+  <td colspan="2" >{% with "6B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  </tr>
+  <tr class="success">
+  <th class="text-center" colspan="1" >Friday</th>
+  <td colspan="1" >{% with "16A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="2" >{% with "17A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="2" >{% with "18A" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >Lunch Break</td>
+  <td colspan="1" >{% with "7B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  <td colspan="1" >{% with "8B" as p %}{{ dict|keyvalue:p }}{% endwith %}</td>
+  </tr>
+  </table>
+
+{% endblock %}

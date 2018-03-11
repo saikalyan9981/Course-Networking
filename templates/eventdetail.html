@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+    <div id="Info">
+        <h3>{{ event.course.name }}</h3>
+    <table class="table">
+
+        <tbody>
+
+        <tr>
+        <th>EventName:</th>
+        <td>{{ event.name }}</td></tr>
+
+        <tr>
+        <th> Deadline Date:</th>
+        <td>{{ event.deadline_date }}</td>
+        </tr>
+        <tr>
+        <th> Deadline Time:</th>
+        <td>{{ event.deadline_time }}</td></tr>
+        <tr>
+        <th> Description:</th>
+        <td>{{ event.description }}</td></tr>
+
+    <!--<p>
+        <strong>Country:</strong>
+        '{widget}<img class="country-select-flag" id="{flag_id}" style="margin: 6px 4px 0" src="{user1.country.flag}">'
+
+        <i class="{{ user1.country.flag_css }}">
+        {{ user1.country }}</i></p>
+    <p>-->
+
+   </div>
+{% endblock %}

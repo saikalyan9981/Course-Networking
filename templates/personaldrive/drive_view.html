@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">My drive</li>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">My Drive</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>File description</th>
+              <th>Download link</th>
+              <th>Uploaded at</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for doc in docs %}
+            <tr>
+              <td>
+                {{ doc.description }}
+              </td>
+              <td>
+                  <a href="{{ doc.document.url }}">{{ doc.filename }}</a>
+              </td>
+                <td>
+                  {{ doc.uploaded_at }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    <button><a href="{% url 'drive_upload' %}">Upload a new resource</a></button>
+    </div>
+{% endblock %}

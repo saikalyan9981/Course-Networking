@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load rate %}
+{% load conc %}
+{% block scripts %}
+<script type="text/javascript" src={%  static 'js/refresh.js' %}></script>
+<script type="text/javascript" src={%  static 'js/form1.js' %}></script>
+<script type="text/javascript" src={%  static 'js/form2.js' %}></script>
+{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container">
+      <ol class="breadcrumb ">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+         <li class="breadcrumb-item"><a href="{% url 'std_crs' course.pk %}">{{ course.name }}</a></li>
+         <li class="breadcrumb-item"><a href="{% url 'std_brd_view' course.pk %}">{{ board.name }}</a></li>
+      </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="page-header" style="padding: 0 ;" >
+    <b>{{ topic.brief }}</b><br>
+    <p>{{ topic.name }}</p><br>
+    <p><b>by : {{ topic.starter.username }}<span style="display:inline-block; width: 20px;"></span> {{ topic.created_at }} </b></b><br>
+    </p>
+    <p style="float: right;"><a href="{% url 'new_post' topic.pk %}">Reply to this question</a></p><br>
+</div>
+<hr>
+
+<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
+
+<div>
+{% if iposts|length > 0 %}
+{% for post in iposts %}
+<b>INSTRUCTOR REPLY</b>
+<div class="container-fluid img-rounded" style="padding: 5px 5px 5px 5px ;" >
+    <p>{{ post.message }}<br><br>
+    <b>Replied by : {{ post.author.username }}<span style="display:inline-block; width: 20px;"></span> {{ post.created_at }}</b></p><hr>
+    </div>
+{% endfor %}
+{% endif %}
+</div>
+
+<div id='here'>
+{% for post in posts reversed %}
+<div class="container-fluid img-rounded" style="padding: 5px 5px 5px 5px ;" >
+    <div class="row">
+    <div class="col-sm-9">
+    <p>{{ post.message }}<br><br>
+    <b>Replied by : {{ post.author.username }}<span style="display:inline-block; width: 20px;"></span> {{ post.created_at }}</b></p><br>
+    </div>
+    <div class="col-sm-3" id={{ post.id }}>
+    {% had_voted user addr post as val %}
+    {% apend "f1_" post.id as f1_id %}
+    <form method="post" action="/{{ post.id }}/rate/1" target="dummyframe" id="{{ f1_id }}">
+        {% csrf_token %}
+        {% if val == 1 %}
+        <button type="submit" value="Submit" style="background-color: #008CBA;" onclick="updateDiv1({{ post.id }})">Upvote</button>
+        {% else %}
+        <button type="submit" value="Submit" onclick="updateDiv1({{ post.id }})">Upvote</button>
+        {% endif %}
+    </form>
+   {{ post.rating.likes }}<br>
+    {% apend "f2_" post.id as f2_id %}
+   <form method="post" action="/{{ post.id }}/rate/-1" target="dummyframe" id="{{ f2_id }}">
+        {% csrf_token %}
+        {% if val == -1 %}
+        <button type="submit" value="Submit" style="background-color: #008CBA;" onclick="updateDiv1({{ post.id }})">Downvote</button>
+        {% else %}
+        <button type="submit" value="Submit" onclick="updateDiv1({{ post.id }})">Downvote</button>
+        {% endif %}
+    </form>
+    {{post.rating.dislikes }}<br>
+    </div>
+    </div>
+</div>
+<hr>
+{% endfor %}
+</div>
+
+
+<b><a href="{% url 'new_topic' course.pk %}">Post a new question</a></b>
+{% endblock %}

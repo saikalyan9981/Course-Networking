@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <ol class="breadcrumb my-4">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'course_home' course.id %}">{{ course.name }}</a></li>
+      </ol>
+        <h2><a href="{% url 'addDeadline' course.id %}">Add a New Event</a></h2>
+
+
+
+    </div>
+
+{% endblock %}

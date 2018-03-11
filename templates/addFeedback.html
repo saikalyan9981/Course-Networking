@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type='text/javascript'>
+            function addRatingFields(){
+                var n = document.getElementById("ratedQuestions");
+                var x = n.value;
+                x++;
+                n.value=x;
+                var container = document.getElementById("appendQue");
+                var que = document.createElement("div");
+                que.className = "form-group";
+                var label = document.createElement("label");
+                label.innerHTML = "Rating Question "+x+":";
+                que.appendChild(label);
+                var input = document.createElement("input");
+                input.required = true;
+                input.type = "text";
+                input.name = "rated" + x;
+                input.className = "form-control";
+                input.placeholder = 'Enter Question Here';
+                que.appendChild(input);
+                container.appendChild(que);
+            }
+            function addSubjectiveFields(){
+                var n = document.getElementById("subjectiveQuestions");
+                var x = n.value;
+                x++;
+                n.value=x;
+                var container = document.getElementById("appendQue");
+                var que = document.createElement("div");
+                que.className = "form-group";
+                var label = document.createElement("label");
+                label.innerHTML = "Subjective Question "+x+":";
+                que.appendChild(label);
+                var input = document.createElement("input");
+                input.required = true;
+                input.type = "text";
+                input.name = "subjective" + x;
+                input.className = "form-control";
+                input.placeholder = 'Enter Question Here';
+                que.appendChild(input);
+                container.appendChild(que);
+            }
+        </script>
+    </head>
+
+
+    <body>
+        <div class="container">
+            <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    {% if field.errors %} <p style="color: rgb(255,0,0)">{{field.errors}}</p>{% endif %}
+                    {{ field.label_tag }} {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="form-group">
+                    <input type="hidden" id="ratedQuestions" name="ratedQuestions" value="0">
+                    <input type="hidden" id="subjectiveQuestions" name="subjectiveQuestions" value="0">
+                </div>
+                <div id ="appendQue"></div>
+                <div>
+                    <button align="left" type="button" class="btn btn-primary" id="addratedque" onclick="addRatingFields()">Add Rating Question</button>
+                    <button align="left" type="button" class="btn btn-primary" id="addsubjectiveque" onclick="addSubjectiveFields()">Add Subjective Question</button>
+                </div>
+                <div align="center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

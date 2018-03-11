@@ -1,0 +1,33 @@
+import sys
+import os
+import django
+sys.path.append('project-2')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+django.setup()
+from tcourse.models import Slot
+Slot.objects.create(name='1A',description='MON 8:30-9:30')
+Slot.objects.create(name='2A',description='MON 9:30-10:30')
+Slot.objects.create(name='3A',description='MON 10:30-11:30')
+Slot.objects.create(name='4A',description='MON 11:30-12:30')
+Slot.objects.create(name='1B',description='MON 14:00-17:00')
+Slot.objects.create(name='5A',description='TUE 8:30-9:30')
+Slot.objects.create(name='6A',description='TUE 9:30-10:30')
+Slot.objects.create(name='7A',description='TUE 10:30-11:30')
+Slot.objects.create(name='8A',description='TUE 11:30-12:30')
+Slot.objects.create(name='2B',description='TUE 14:00-15:30')
+Slot.objects.create(name='3B',description='TUE 15:30-17:00')
+Slot.objects.create(name='9A',description='WED 8:30-9:30')
+Slot.objects.create(name='10A',description='WED 9:30-11:00')
+Slot.objects.create(name='11A',description='WED 11:00-12:30')
+Slot.objects.create(name='4B',description='WED 14:00-15:30')
+Slot.objects.create(name='5B',description='WED 15:30-17:00')
+Slot.objects.create(name='12A',description='THU 8:30-9:30')
+Slot.objects.create(name='13A',description='THU 9:30-10:30')
+Slot.objects.create(name='14A',description='THU 10:30-11:30')
+Slot.objects.create(name='15A',description='THU 11:30-12:30')
+Slot.objects.create(name='6B',description='THU 14:00-17:00')
+Slot.objects.create(name='16A',description='FRI 8:30-9:30')
+Slot.objects.create(name='17A',description='FRI 9:30-11:00')
+Slot.objects.create(name='18A',description='FRI 11:00-12:30')
+Slot.objects.create(name='7B',description='FRI 14:00-15:30')
+Slot.objects.create(name='8B',description='FRI 15:30-17:00')

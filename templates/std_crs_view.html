@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block breadcrumb %}
+    <div class="container">
+      <ol class="breadcrumb ">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'std_crs' course.pk %}">{{ course.name }}</a></li>
+      </ol>
+    </div>
+{% endblock %}
+{% block content %}
+
+<h1> <b> {{ course.name }}</b>  <h2 class="text-muted d-block">{{ course.description }}</h2></h1>
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Instructor(s) for this course</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Instructor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for inst in ins %}
+            <tr>
+              <td>
+                  <a href="{{ inst.get_absolute_url }}">  {{ inst.fullname }}</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    <div class="container">
+    <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Notifications of {{ course.name }}</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Event</th>
+            <th>Course</th>
+            <th>Deadline Date</th>
+              <th>Deadline Time</th>
+          </tr>
+        </thead>
+        <tbody>
+         {% for events in course.events_set.all %}
+            <tr>
+              <td>
+                  <a href="{% url 'eventdetail' events.id %}">  {{ events.name }}</a>
+              </td>
+                <td>
+                    {{events.course}}
+                </td>
+                <td>
+                    {{events.deadline_date}}
+                </td>
+                <td>{{events.deadline_time}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+      </div>
+        <div class="col-sm-3">
+          <br>
+          <br>
+       <h4>QUICK LINKS</h4>
+        <ul>
+        <li><a href="{% url 'std_brd_view' course.pk %}">View discussion forum</a></li>
+        <li><a href="{% url 'std_res' course.pk %}">View course resources</a></li>
+        </ul>
+            <br>
+            <br>
+            <h4>
+                Participants of {{course.name }}
+            </h4>
+       <table class="table">
+        <tbody>
+          {% for std in course.student_set.all %}
+            <tr>
+              <td>
+                  <a href="{{ std.get_absolute_url }}">  {{ std.fullname }}</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container" id="ProfilePage">
+    {% if user.is_anonymous %}
+        <h1>Profile</h1>
+    {% else %}
+    <div id="LeftCol">
+        <div id="Photo">
+            {% if user1.image %}
+            <img src="{{ user1.image.url }}" width="240">
+            {% endif %}
+        </div>
+          </div>
+    {% endif%}
+     <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">My Profile</li>
+      </ol>
+
+    <div id="Info">
+    <table class="table">
+
+        <tbody>
+        <tr>
+        <th><strong>Username:</strong></th>
+        <td>{{ user1 }}</td></tr>
+
+        <tr>
+        <th> <strong>Full name:</strong></th>
+        <td>{{ user1.fullname }}</td>
+        </tr>
+        <tr>
+        <th> <strong>Email:</strong></th>
+        <td>{{ user1.user.email }}</td></tr>
+        <tr>
+        <th> <strong>Description:</strong></th>
+        <td>{{ user1.description }}</td></tr>
+        <tr>
+        <th>  <strong>Phone:</strong></th>
+            <td>{{ user1.phone }}</td></tr>
+        <tr>
+        <th>  <strong>City:</strong></th>
+        <td>{{ user1.city }}</td>
+            </tr>
+
+        <tr>
+
+        <th>  <strong>Website:</strong></th>
+        <td>{{ user1.website }}</td>
+            </tr>
+
+    <!--<p>
+        <strong>Country:</strong>
+        '{widget}<img class="country-select-flag" id="{flag_id}" style="margin: 6px 4px 0" src="{user1.country.flag}">'
+
+        <i class="{{ user1.country.flag_css }}">
+        {{ user1.country }}</i></p>
+    <p>-->
+
+
+    {% if user1.is_student %}
+        <tr>
+        <th><strong> Courses Undertaken: </strong></th>
+        <td>
+        {% for course in user1.courses.all %}
+                <a href="{{ course.get_absolute_url }}">{{ course.name }}</a>
+        {% endfor %}
+        </td>
+            </tr>
+    {% else %}
+        <tr>
+        <th> <strong> Courses Undertaken: </strong></th>
+        <td>
+        {% for course in user1.course_set.all %}
+                <a href="{{ course.get_absolute_url }}">{{ course.name }}</a>
+            <span>&nbsp;</span>
+        {% endfor %}
+        </td>
+        </tr>
+    {% endif %}
+        </tbody>
+    </table>
+         {% if user1.user.pk == user.pk %}
+            {% if user1.is_student %}
+            <a href="{% url 'stedprofile' %}"><button>Edit Profile</button> </a>
+            {% else %}
+            <a href="{% url 'insedprofile' %}"><button>Edit Profile</button> </a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

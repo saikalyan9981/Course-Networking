@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<a href="{% url 'logout' %}"> <input type="button" value="Logout" style="float: right;"></a>
+<h1>Hello <b> {{ std.fullname }} </b></h1>
+
+<div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Courses</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+            <tr>
+              <td>
+                <a href="{% url 'std_crs' course.id %}">{{ course.name }}</a>
+                <small class="text-muted d-block">{{ course.description }}</small>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+<div class="container">
+    <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active">Notifications</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Event</th>
+            <th>Course</th>
+            <th>Time/Deadline</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+        {% for events in course.events_set.all %}
+            <tr>
+              <td>
+                  {{ events.name }}
+              </td>
+                <td>
+                    {{events.course}}
+                </td>
+                <td>
+                    {{events.deadline_date}}
+                </td>
+            </tr>
+          {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<h3><a href="{% url 'std_ttb'  %}">View timetable</a></h3>
+{% endblock %}
